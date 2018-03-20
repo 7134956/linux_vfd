@@ -5,6 +5,7 @@
 config VFD_SUPPORT
 	tristate "7-segment LED display support"
 	default n
+	select GPIOLIB
 	help
 	  Say Y here if you want to use the driver for 7-segment
 	  LED displays connected to a LED display driver IC like

@@ -34,7 +34,7 @@
 #include <linux/ctype.h>
 #include <linux/of.h>
 #include <linux/of_address.h>
-#include <linux/of_gpio.h>
+#include <linux/gpio/consumer.h>
 #include <asm/irq.h>
 #include <asm/io.h>
 
@@ -405,24 +405,19 @@ void vfd_timer_sr(struct timer_list *t)
 /* Set up data bus GPIOs */
 static __init int __setup_gpios (struct platform_device *pdev, struct vfd_t *vfd)
 {
-	int i, n, ret;
-	struct gpio_desc *desc;
+	int i;
+
+	/* Fill GPIO pin array */
+	int num_gpios = gpiod_count(&pdev->dev, NULL);
+	if (num_gpios != 3) {
+		dev_err(&pdev->dev, "%d bus signal GPIOs must be defined", GPIO_MAX);
+		return -ENODEV;
+	}
 
 	for (i = 0; i < GPIO_MAX; i++) {
-		desc = of_get_named_gpiod_flags(pdev->dev.of_node, "gpios", i, NULL);
-		if (IS_ERR(desc)) {
-			dev_err(&pdev->dev, "%d bus signal GPIOs must be defined", GPIO_MAX);
-			return PTR_ERR (desc);
-		}
-
-		n = desc_to_gpio(desc);
-
-		if ((ret = gpio_request(n, "vfd")) < 0) {
-			dev_info(&pdev->dev, "failed to request gpio %d\n", n);
-			return ret;
-		}
-
-		vfd->gpio_desc [i] = desc;
+		vfd->gpio_desc[i] = devm_gpiod_get_index(&pdev->dev, NULL, i, GPIOD_ASIS);
+		if (IS_ERR(vfd->gpio_desc[i]))
+			return PTR_ERR(vfd->gpio_desc[i]);
 	}
 
 	dev_info(&pdev->dev, "bus signals STB,CLK,DI/DO mapped to GPIOs %d,%d,%d\n",

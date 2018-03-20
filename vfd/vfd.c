@@ -44,7 +44,9 @@
 
 #include "vfd-priv.h"
 
+#ifdef CONFIG_HAS_EARLYSUSPEND
 static void vfd_early_suspend (struct early_suspend *h);
+#endif
 
 static const char *skip_nspaces (const char *str, int *count)
 {

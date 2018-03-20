@@ -66,3 +66,18 @@
                 /* dot LED <16_bit_word bit_number> in raw display buffer ('overlay') */
                 dot_bits = /bits/ 8 <4 0 4 1 4 2 4 3 4 4 4 5 4 6>;
         };
+
+// AMLogic S905-based Enybox EM95 Android TV box, TM1628 chip
+
+	meson-vfd {
+		compatible = "amlogic,aml_vfd";
+		dev_name = "meson-vfd";
+		status = "okay";
+		gpios = <&gpio GPIODV_25 GPIO_ACTIVE_HIGH>,  /* STB */
+				<&gpio GPIODV_27 GPIO_ACTIVE_HIGH>,  /* CLK */
+				<&gpio GPIODV_26 GPIO_ACTIVE_HIGH>;  /* DI/DO */
+		/* dot LED names */
+		dot_names = "APPS", "SETUP", "USB", "CARD", ":", "HDMI", "CVBS";
+		/* dot LED <16_bit_word bit_number> in raw display buffer ('overlay') */
+		dot_bits = /bits/ 8 <0 3 1 3 2 3 3 3 4 3 5 3 6 3>;
+	};

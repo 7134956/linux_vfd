@@ -584,6 +584,8 @@ static int vfd_remove(struct platform_device *pdev)
 	int i;
 	struct vfd_t *vfd = platform_get_drvdata(pdev);
 
+	del_timer(&vfd->timer);
+
 #ifdef CONFIG_HAS_EARLYSUSPEND
 	unregister_early_suspend (&vfd->early_suspend);
 #endif

@@ -467,6 +467,7 @@ static __init int __setup_dotled (struct platform_device *pdev, struct vfd_t *vf
 }
 
 /* Set up input device */
+#ifndef CONFIG_VFD_NO_KEY_INPUT
 static __init int __setup_input (struct platform_device *pdev, struct vfd_t *vfd)
 {
 	int i, ret;
@@ -515,6 +516,7 @@ static __init int __setup_input (struct platform_device *pdev, struct vfd_t *vfd
 
 	return 0;
 }
+#endif /* CONFIG_VFD_NO_KEY_INPUT */
 
 static int __init vfd_probe(struct platform_device *pdev)
 {
@@ -552,8 +554,10 @@ static int __init vfd_probe(struct platform_device *pdev)
 		goto err2;
 
 	/* set up input device, if needed */
+#ifndef CONFIG_VFD_NO_KEY_INPUT
 	if ((ret = __setup_input (pdev, vfd)) < 0)
 		goto err2;
+#endif /* CONFIG_VFD_NO_KEY_INPUT */
 
 #ifdef CONFIG_HAS_EARLYSUSPEND
 	vfd->early_suspend.level = EARLY_SUSPEND_LEVEL_BLANK_SCREEN;

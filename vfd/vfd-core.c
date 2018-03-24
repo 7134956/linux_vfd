@@ -659,7 +659,7 @@ static const struct of_device_id vfd_dt_match[]={
 	},
 	{},
 };
-static struct platform_driver vfd_driver = {
+static __refdata struct platform_driver vfd_driver = {
 	.probe      = vfd_probe,
 	.remove     = vfd_remove,
 	.suspend    = vfd_suspend,

@@ -2,6 +2,7 @@
  * Glyph bitmap definitions
  */
 
+#include <linux/module.h>
 #include <linux/kernel.h>
 #include "vfd-priv.h"
 
@@ -98,3 +99,5 @@ struct vfd_glyph_t vfd_glyphs [] = {
 	{ 'z', a|b|g|e|d },
 	{ 0, 0 }
 };
+
+MODULE_LICENSE("GPL");

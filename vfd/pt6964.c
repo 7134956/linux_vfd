@@ -3,6 +3,7 @@
  * Copyright (c) 2017 Andrew Zabolotny <zapparello@ya.ru>
  */
 
+#include <linux/module.h>
 #include <linux/kernel.h>
 #include <linux/gpio/consumer.h>
 
@@ -267,3 +268,5 @@ int __init hardware_init(struct vfd_t *vfd)
 
 	return 0;
 }
+
+MODULE_LICENSE("GPL");

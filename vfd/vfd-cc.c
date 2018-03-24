@@ -12,6 +12,7 @@
  * encodes a single glyph.
  */
 
+#include <linux/module.h>
 #include <linux/kernel.h>
 #include <linux/slab.h>
 #include "vfd-priv.h"
@@ -64,3 +65,5 @@ void vfd_init_glyphs_cc (struct vfd_t *vfd, const u8 *segno)
 		g->cellcode [code] = dst;
 	}
 }
+
+MODULE_LICENSE("GPL");

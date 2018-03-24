@@ -21,7 +21,7 @@ config VFD_SUPPORT
 	  module will be called vfd.
 
 config VFD_NO_KEY_INPUT
-	tristate "No key input from IC"
+	bool "No key input from IC"
 	default n
 	depends on VFD_SUPPORT
 	help
@@ -30,7 +30,7 @@ config VFD_NO_KEY_INPUT
 	  create any input device and save a bit in code size.
 
 config VFD_NO_DELAYS
-	tristate "Do not insert delays as per datasheet"
+	bool "Do not insert delays as per datasheet"
 	default n
 	depends on VFD_SUPPORT
 	help

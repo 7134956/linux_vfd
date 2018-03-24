@@ -8,6 +8,7 @@
  * support in a more or less platform-independent way.
  */
 
+#include <linux/module.h>
 #include <linux/kernel.h>
 #include <linux/slab.h>
 #include "vfd-priv.h"
@@ -60,3 +61,5 @@ void vfd_init_glyphs_ca (struct vfd_t *vfd, const u8 *cellno, const u8 *cellbit)
 		g->bitmap [code] = vfd_glyphs [i].image;
 	}
 }
+
+MODULE_LICENSE("GPL");
